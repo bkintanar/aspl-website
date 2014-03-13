@@ -15,6 +15,11 @@ class Subject extends Eloquent {
         return $this->belongsToMany('Subject', 'subject_prerequisite', 'subject_id', 'prerequisite_id');
     }
 
+    public function directCorequisites()
+    {
+        return $this->belongsToMany('Subject', 'subject_corequisite', 'subject_id', 'corequisite_id');
+    }
+
     public function prerequisites()
     {
         $prerequisites = $this->directPrerequisites;
@@ -28,6 +33,28 @@ class Subject extends Eloquent {
             }
             array_push($all, $subject);
         }
+
+        rsort($all);
+
+        return $all;
+    }
+
+    public function corequisites()
+    {
+        $corequisites = $this->directCorequisites;
+
+        $all = array();
+        foreach($corequisites as $subject)
+        {
+            if (count($subject->directCorequisites))
+            {
+                $all += $subject->corequisites();
+            }
+            array_push($all, $subject);
+        }
+
+        rsort($all);
+
         return $all;
     }
 } 

@@ -9,4 +9,11 @@
 class Semester extends Eloquent {
 
     protected $table = 'semesters';
+
+    public static function getNextSemester($curriculum_id, $standing)
+    {
+        $curriculum = Curriculum::whereId($curriculum_id)->first();
+
+        print_r($curriculum->data());die();
+    }
 } 

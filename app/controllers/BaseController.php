@@ -8,6 +8,10 @@ class BaseController extends Controller {
     {
         $this->theme = Input::get('theme') ? Input::get('theme') : Config::get('theme.active');
         $this->data['theme'] = $this->theme;
+
+        $school_year_config = DBConfig::whereName('school_year')->first();
+        $this->school_year_id = SchoolYear::whereSchoolYear($school_year_config->value)->pluck('id');
+        $this->semester_id    = DBConfig::whereName('semester')->pluck('value');
     }
 
 	/**

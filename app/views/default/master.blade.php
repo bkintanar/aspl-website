@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="ie ie8"> <![endif]-->
-<!--[if IE 9]><html class="ie ie9"> <![endif]-->
-<!--[if gt IE 9]><!--><html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<!--[if IE 8]><html class="ie ie8"><![endif]-->
+<!--[if IE 9]><html class="ie ie9"><![endif]-->
+<!--[if gt IE 9]><!--><html xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <title>{{$page}} - aSPL v0.1</title>
@@ -21,9 +21,8 @@
     <script src="{{URL::asset('themes/' .$theme. '/js/jquery-2.1.0.min.js')}}"></script>
     <script src="{{URL::asset('themes/' .$theme. '/js/bootstrap.min.js')}}"></script>
 
-    @if (isset($controller_js))
-    <!-- Load controller specific js -->
+    @if (isset($controller_js))<!-- Load controller specific js -->
     {{ HTML::script("themes/{$theme}/js/{$controller_js}") }}
     @endif
-<!-- The Scripts // End -->
+    <!-- The Scripts // End -->
 </body>

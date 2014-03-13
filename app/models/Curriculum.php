@@ -42,9 +42,11 @@ class Curriculum extends Eloquent {
          * }
          */
 
-        $curriculum_data = $this->curriculum_data;
+        $curriculum_data = CurriculumData::whereCurriculumId($this->id)->get();
 
-        foreach($this->curriculum_data as $data)
+//        print_r($curriculum_data);die;
+
+        foreach($curriculum_data as $data)
         {
             $this->data_r[$data->year][$data->semester_id][$data->subject_id] = array(
                 'subject' => Subject::whereId($data->subject_id)->first(),
@@ -55,6 +57,7 @@ class Curriculum extends Eloquent {
 
     public function getSubjectsByYearAndSemester($year, $semester)
     {
+//        print_r($this->data_r);die;
         return $this->data_r[$year][$semester];
     }
 } 

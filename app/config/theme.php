@@ -2,5 +2,5 @@
 
 return array(
 
-    'active' => 'default'
+    'active' => 'ace'
 );
