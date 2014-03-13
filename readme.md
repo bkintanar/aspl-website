@@ -1,21 +1,30 @@
-## Laravel PHP Framework
+# automated Subject Proposed-list System
 
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/version.png)](https://packagist.org/packages/laravel/framework) [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.png)](https://packagist.org/packages/laravel/framework) [![Build Status](https://travis-ci.org/laravel/framework.png)](https://travis-ci.org/laravel/framework)
+The project is in it's infant stage.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+Basically I have stated the gist of the project in our chat, but here's a deeper overview of the project.
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+##Definition of terms
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+###Prerequisite Subject
+a subject a student should pass first before being able to take a subject.
 
-## Official Documentation
+###Corequisite Subject
+a subject a student should take with the subject he intended to enroll.
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+###Proposed-list
+a list of subject that a student can take up for next semester. this would be based on a veriety of things.
+ (1) needs to check the current standing of the student and what semester he is currently on. since the proposed list will be limited on the allotted number of units a student can take depending on the year level and the semester the student is in. this data can be found by checking the curriculum the student is under.
+ (2) the subjects that should be listed here should have met all prerequisite subjects.
 
-### Contributing To Laravel
+##Features
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+###Authentication
+- basing on the group the user is in it should redirect to the correct dashboard usuable for the user.
 
-### License
+###User groups
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+###Users
+ - student - can view their grades on their previous subjects / semesters, can see their prospectus / curriculum. can view their proposed list of subject for next semester.
+ - teacher
+ - admin
