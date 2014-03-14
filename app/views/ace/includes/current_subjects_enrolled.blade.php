@@ -44,7 +44,7 @@
                             </td>
 
                             <td class="hidden-480">
-                                {{$value['subject']->unit}}.0
+                                {{sprintf("%.2f", $value['subject']->unit)}}
                             </td>
                             <td>
                                 {{$value['grade']}}

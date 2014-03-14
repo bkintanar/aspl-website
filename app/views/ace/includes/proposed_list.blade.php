@@ -43,7 +43,7 @@
                             </td>
 
                             <td class="hidden-480">
-                                {{$subject->unit}}.0
+                                {{sprintf("%.2f", $subject->unit)}}
                             </td>
                         </tr>
                         @endforeach
