@@ -349,6 +349,7 @@ class SubjectPrerequisiteTableSeeder extends Seeder {
         DB::table('subject_prerequisite')->insert(
             array(
                 /* BSCS 1st Year 1st Semester */
+                array('subject_id' => 90, 'prerequisite_id' => 89),
                 array('subject_id' => 59, 'prerequisite_id' => 58),
                 array('subject_id' => 28, 'prerequisite_id' => 27),
                 /* BSCS 1st Year 2nd Semester */
