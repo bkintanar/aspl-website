@@ -10,10 +10,17 @@ class Semester extends Eloquent {
 
     protected $table = 'semesters';
 
-    public static function getNextSemester($curriculum_id, $standing)
+    public static function getNextSemester($standing)
     {
-        $curriculum = Curriculum::whereId($curriculum_id)->first();
+        $current_semester = DBConfig::whereName('semester')->pluck('value');
+        $next_semester    = Semester::where('id', '>', $current_semester)->orderBy('id')->pluck('id');
 
-        print_r($curriculum->data());die();
+        if($next_semester)
+        {
+        	return array($standing, $next_semester);
+        }
+
+        // FIXME: use getStanding()
+        return array($standing+1, Semester::orderBy('id')->first()->pluck('id'));
     }
 } 

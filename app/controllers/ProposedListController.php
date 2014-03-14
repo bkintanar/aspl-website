@@ -18,15 +18,8 @@ class ProposedListController extends BaseController {
 
         $firstYearFirstSem = ($subj->prerequisites());
 
-        $student->getProposedList();
-
-        foreach ($firstYearFirstSem as $key => $value)
-        {
-            echo $value->code . '<br />';
-        }
-        die;
-
         $this->data['page'] = 'Proposed-list';
+        $this->data['proposed_list'] = $student->getProposedList();
         $this->data['page_descrption_small'] = 'Auto generated based on student\'s curriculum.';
         $this->data['page_description'] = 'Proposed-list';
         $this->_template_data('proposed-list');

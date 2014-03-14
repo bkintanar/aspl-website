@@ -14,4 +14,9 @@ class EnrolledSubject extends Eloquent {
     {
         return $this->belongsTo('Student');
     }
+
+    public function subject()
+    {
+    	return $this->belongsTo('Subject');
+    }
 }

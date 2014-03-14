@@ -12,6 +12,11 @@ class CurriculumData extends Eloquent {
 
     public function curriculum()
     {
-        $this->belongsTo('Curriculum');
+        return $this->belongsTo('Curriculum');
+    }
+
+    public function subject()
+    {
+    	return $this->belongsTo('Subject');
     }
 } 
