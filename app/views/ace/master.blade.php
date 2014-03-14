@@ -21,13 +21,17 @@
 
     <!--fonts-->
 
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet" />
 
     <!--ace styles-->
 
-    <link rel="stylesheet" href="{{URL::asset('themes/' .$theme. '/css/ace.min.css')}}" />
-    <link rel="stylesheet" href="{{URL::asset('themes/' .$theme. '/css/ace-responsive.min.css')}}" />
-    <link rel="stylesheet" href="{{URL::asset('themes/' .$theme. '/css/ace-skins.min.css')}}" />
+    <link href="{{URL::asset('themes/' .$theme. '/css/ace.min.css')}}" rel="stylesheet" />
+    <link href="{{URL::asset('themes/' .$theme. '/css/ace-responsive.min.css')}}" rel="stylesheet" />
+    <link href="{{URL::asset('themes/' .$theme. '/css/ace-skins.min.css')}}" rel="stylesheet" />
+
+    <!-- page specific style -->
+    @if(isset($controller_css))<link href="{{URL::asset('themes/' .$theme. '/css/' .$controller_css)}}" rel="stylesheet" />@endif
+
 
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="{{URL::asset('themes/' .$theme. '/css/ace-ie.min.css')}}" />
@@ -668,5 +672,8 @@
 <script src="themes/ace/js/ace.min.js"></script>
 
 <!--inline scripts related to this page-->
+@if(isset($controller_js))<script src="{{URL::asset('themes/' .$theme. '/js/' .$controller_js)}}"></script>@endif
+    
+
 </body>
 </html>
