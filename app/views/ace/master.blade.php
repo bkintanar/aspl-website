@@ -593,7 +593,7 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
             </li>
-            <li class="active">Dashboard</li>
+            <li class="active">{{$page}}</li>
         </ul><!--.breadcrumb-->
         <div class="nav-search" id="nav-search">
             <form class="form-search" />
