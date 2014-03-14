@@ -28,6 +28,21 @@
                                         </h4>
 
                                         <div class="space-6"></div>
+                                        @if(Session::has('flash_error'))
+                                            <div class="alert alert-error">
+                                                <button type="button" class="close" data-dismiss="alert">
+                                                    <i class="icon-remove"></i>
+                                                </button>
+
+                                                <strong>
+                                                    <i class="icon-remove"></i>
+                                                    Oh snap!
+                                                </strong>
+
+                                                {{Session::get('flash_error')}}
+                                                <br>
+                                            </div>
+                                        @endif
 
                                         {{ Form::open(array('route' => 'authenticate', 'method' => 'post', 'id' => 'loginForm')) }}
                                         <fieldset>

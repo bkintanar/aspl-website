@@ -10,6 +10,12 @@ class AuthController extends BaseController {
 
     public function index()
     {
+        // Redirect to dashboard if user is logged in
+        if (Auth::check())
+        {
+            return Redirect::route('dashboard');
+        }
+
         $this->data['page'] = 'Login';
         $this->data['page_description'] = 'User login page';
         $this->_template_data('login');
@@ -28,6 +34,7 @@ class AuthController extends BaseController {
             return Redirect::to('dashboard');
         }
 
+        // authentication failed redirect back with flash_error
         return Redirect::back()->with('flash_error', 'The email or password you entered is incorrect or your account is not active.')->withInput();
     }
 
