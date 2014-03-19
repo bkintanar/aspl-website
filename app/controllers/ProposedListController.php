@@ -14,10 +14,6 @@ class ProposedListController extends BaseController {
 
         $student = Student::whereUserId($user->id)->first();
 
-        $subj = Subject::whereCode('Lit 21')->first();
-
-        $firstYearFirstSem = ($subj->prerequisites());
-
         $this->data['page'] = 'Proposed-list';
         $this->data['proposed_list'] = $student->getProposedList();
         $this->data['page_descrption_small'] = 'Auto generated based on student\'s curriculum.';
