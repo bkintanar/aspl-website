@@ -69,4 +69,6 @@ require $framework.'/Illuminate/Foundation/start.php';
 |
 */
 
+include 'constants.php';
+
 return $app;

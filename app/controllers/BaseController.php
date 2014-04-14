@@ -12,6 +12,7 @@ class BaseController extends Controller {
         $school_year_config = DBConfig::whereName('school_year')->first();
         $this->school_year_id = SchoolYear::whereSchoolYear($school_year_config->value)->pluck('id');
         $this->semester_id    = DBConfig::whereName('semester')->pluck('value');
+
     }
 
 	/**
@@ -61,7 +62,7 @@ class BaseController extends Controller {
     {
         $blade_file = $this->theme . ".{$blade_file}";
 
-        if (Request::is('adm*')) {
+        if (Request::is('a/*')) {
             $this->layout = View::make($this->theme . '.adm-master');
         } else if (Request::is('login*')) {
             $this->layout = View::make($this->theme . '.adm-login-master');

@@ -29,7 +29,7 @@ class Navlink extends Eloquent {
 	{
 		$result = '<ul class="nav nav-list">' . PHP_EOL;
 
-        $_parent_links = Navlink::whereParentId(0)->get();
+        $_parent_links = Navlink::whereParentId(0)->whereGroupId(Auth::user()->group_id)->get();
 
         foreach($_parent_links as $_parent_link)
         {
@@ -64,7 +64,7 @@ class Navlink extends Eloquent {
         }
         else
         {
-        	$item .= '<a href="'. $link->href .'">' . PHP_EOL;
+        	$item .= '<a href="/'. Group::getPrefix() . '/' . $link->href .'">' . PHP_EOL;
         }
 
         if($link->parent_id != 0 and $link->icon == '')
@@ -90,7 +90,7 @@ class Navlink extends Eloquent {
 
         if (count($children))
         {
-        	$item .= '<ul class="submenu">' . PHP_EOL;
+        	$item .= '<ul class="submenu" style="display: block;">' . PHP_EOL;
 
         	foreach ($children as $child)
         	{

@@ -13,7 +13,7 @@ class AuthController extends BaseController {
         // Redirect to dashboard if user is logged in
         if (Auth::check())
         {
-            return Redirect::route('dashboard');
+            return User::redirectToGroupDashboard();
         }
 
         $this->data['page'] = 'Login';
@@ -31,7 +31,7 @@ class AuthController extends BaseController {
 
         if(Auth::attempt($username_credentials))
         {
-            return Redirect::to('dashboard');
+            return User::redirectToGroupDashboard();
         }
 
         // authentication failed redirect back with flash_error

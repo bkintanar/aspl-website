@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder {
         $this->call('ConfigTableSeeder');
         $this->call('SubjectPrerequisiteTableSeeder');
         $this->call('SubjectCorequisiteTableSeeder');
+        $this->call('GroupTableSeeder');
 	}
 }
 
@@ -524,7 +525,7 @@ class UserTableSeeder extends Seeder {
 
         DB::table('users')->insert(
             array(
-                array('username' => 'bkintanar', 'password' => Hash::make('retardko'), 'active' => 1),
+                array('username' => 'bkintanar', 'password' => Hash::make('retardko'), 'group_id' => 3, 'active' => 1),
             )
         );
     }
@@ -593,6 +594,22 @@ class ConfigTableSeeder extends Seeder {
             array(
                 array('name' => 'school_year', 'value' => '2013-2014'),
                 array('name' => 'semester', 'value' => '1'),
+            )
+        );
+    }
+}
+
+class GroupTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('groups')->delete();
+
+        DB::table('groups')->insert(
+            array(
+                array('name' => 'admin'),
+                array('name' => 'professor'),
+                array('name' => 'student'),
             )
         );
     }

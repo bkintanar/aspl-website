@@ -351,7 +351,7 @@
         <ul class="breadcrumb">
             <li>
                 <i class="icon-home home-icon"></i>
-                <a href="#">Home</a>
+                <a href="#">Administrator</a>
 
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
@@ -428,16 +428,15 @@
 </script>
 <script src="/themes/ace/js/bootstrap.min.js"></script>
 
-<!--page specific plugin scripts-->
+@yield('page_specific_scripts')
 
 <!--ace scripts-->
 
 <script src="/themes/ace/js/ace-elements.min.js"></script>
 <script src="/themes/ace/js/ace.min.js"></script>
 
-<!--inline scripts related to this page-->
+<!--scripts related to this page-->
 @if(isset($controller_js))<script src="{{URL::asset('/themes/' .$theme. '/js/' .$controller_js)}}"></script>@endif
-    
 
 </body>
 </html>

@@ -49,4 +49,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	public static function redirectToGroupDashboard()
+	{
+		$_user = Auth::user();
+
+		switch($_user->group_id)
+		{
+			case GROUP_ADMINISTRATOR: return Redirect::route('administrator');
+			case GROUP_PROFESSOR:     return Redirect::route('professor');
+			case GROUP_STUDENT:       return Redirect::route('student');
+		}
+	}
+
 }
