@@ -30,3 +30,4 @@ a list of subject that a student can take up for next semester. this would be ba
 - Create a MySQL database based on the `app/config/database.php`
 - Run `php artisan migrate` and `php artisan db:seed` in the project directory.
 - go to your browser and login as `bkintanar` with password `retardko`.
+
