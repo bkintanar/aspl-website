@@ -83,7 +83,7 @@ class Student extends Eloquent {
             list($_standing, $_semester) = Semester::getNextSemester($_standing);
         }
 
-        $_curriculum_subjects_for_next_semester = CurriculumData::whereCurriculumId($_curriculum_id)->whereYear($_standing)->whereSemesterId($_semester)->get();
+        $_curriculum_subjects_for_next_semester = CurriculumData::whereCurriculumId($_curriculum_id)->where('year', $_standing)->whereSemesterId($_semester)->get();
 
         foreach($_curriculum_subjects_for_next_semester as $_curriculum_subject)
         {
