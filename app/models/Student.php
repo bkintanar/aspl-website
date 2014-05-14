@@ -83,6 +83,7 @@ class Student extends Eloquent {
             list($_standing, $_semester) = Semester::getNextSemester($_standing);
         }
 
+        // Can't use whereYear since it conflicts to Illuminate\Database\Query\Builder::whereYear()
         $_curriculum_subjects_for_next_semester = CurriculumData::whereCurriculumId($_curriculum_id)->where('year', $_standing)->whereSemesterId($_semester)->get();
 
         foreach($_curriculum_subjects_for_next_semester as $_curriculum_subject)
