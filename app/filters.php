@@ -38,6 +38,21 @@ Route::filter('auth', function()
 	if (Auth::guest()) return Redirect::guest('login');
 });
 
+Route::filter('must_be_student', function()
+{
+    if (Auth::guest() or Auth::user()->group_id != GROUP_STUDENT)
+    {
+        App::abort(404);
+    }
+});
+
+Route::filter('must_be_administrator', function()
+{
+    if (Auth::guest() or Auth::user()->group_id != GROUP_ADMINISTRATOR)
+    {
+        App::abort(404);
+    }
+});
 
 Route::filter('auth.basic', function()
 {

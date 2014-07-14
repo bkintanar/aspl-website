@@ -12,6 +12,12 @@ class Student extends Eloquent {
 
     protected $data_r = array();
 
+    protected $_subjects_for_next_semester = array();
+
+    protected $_units_to_enroll = 0;
+
+    protected $_semestral_units_available = 0;
+
     public function curriculum()
     {
         return $this->belongsTo('Curriculum');
@@ -38,12 +44,19 @@ class Student extends Eloquent {
     public function canEnrollSubject($subjectToEnroll)
     {
         $prerequisites = $subjectToEnroll->prerequisites();
+        $corequisites  = $subjectToEnroll->corequisites();
 
         foreach ($prerequisites as $prerequisite)
         {
-            $hasPassed = $this->hasPassedSubject($prerequisite);
+            if (!$this->hasPassedSubject($prerequisite))
+            {
+                return false;
+            }
+        }
 
-            if (!$hasPassed)
+        foreach ($corequisites as $corequisite)
+        {
+            if (!Student::canEnrollSubject($corequisite))
             {
                 return false;
             }
@@ -74,8 +87,8 @@ class Student extends Eloquent {
         $_curriculum_id = $this->curriculum_id;
         $_standing      = $this->standing;
 
-        $_units_to_enroll = $_semestral_units_available = 0;
-        $_subjects_for_next_semester = $_subject_student_cant_take = array();
+        $this->_units_to_enroll = $this->_semestral_units_available = 0;
+        $_subject_student_cant_take = array();
 
         // Get next semester
         if (empty($_semester))
@@ -90,17 +103,19 @@ class Student extends Eloquent {
         {
             $_subject = Subject::whereId($_curriculum_subject->subject_id)->first();
 
-            if (Student::canEnrollSubject($_subject))
+            if (in_array($_subject, $this->_subjects_for_next_semester)) continue;
+
+            if (Student::canEnrollSubject($_subject) and !in_array($_subject, $this->_subjects_for_next_semester))
             {
-                array_push($_subjects_for_next_semester, $_subject);
-                $_units_to_enroll += $_subject->unit;
+                array_push($this->_subjects_for_next_semester, $_subject);
+                $this->_units_to_enroll += $_subject->unit;
             }
             else
             {
                 array_push($_subject_student_cant_take, $_subject);
             }
             
-            $_semestral_units_available += $_subject->unit;
+            $this->_semestral_units_available += $_subject->unit;
             $_last_id = $_curriculum_subject->id;
         }
 
@@ -113,10 +128,10 @@ class Student extends Eloquent {
             // FIXME: take into consideration the availablity of subject
             foreach($_failed_subjects as $_subject)
             {
-                if ($_units_to_enroll + $_subject->unit <= $_semestral_units_available)
+                if ($this->_units_to_enroll + $_subject->unit <= $this->_semestral_units_available and ($_subject->available & $_semester))
                 {
-                    array_push($_subjects_for_next_semester, $_subject);
-                    $_units_to_enroll += $_subject->unit;
+                    array_push($this->_subjects_for_next_semester, $_subject);
+                    $this->_units_to_enroll += $_subject->unit;
                 }
             }
 
@@ -125,20 +140,20 @@ class Student extends Eloquent {
 
             foreach($_possible_substitute_subjects as $_curriculum_subject)
             {
-                if (Student::canEnrollSubject($_curriculum_subject->subject) and ($_units_to_enroll + $_curriculum_subject->subject->unit <= $_semestral_units_available))
+                if (Student::canEnrollSubject($_curriculum_subject->subject) and ($this->_units_to_enroll + $_curriculum_subject->subject->unit <= $this->_semestral_units_available))
                 {
-                    array_push($_subjects_for_next_semester, $_curriculum_subject->subject);
-                    $_units_to_enroll += $_curriculum_subject->subject->unit;
+                    array_push($this->_subjects_for_next_semester, $_curriculum_subject->subject);
+                    $this->_units_to_enroll += $_curriculum_subject->subject->unit;
                 }
 
-                if ($_units_to_enroll == $_semestral_units_available)
+                if ($this->_units_to_enroll == $this->_semestral_units_available)
                 {
                     break;
                 }
             }
         }
 
-        return $_subjects_for_next_semester;
+        return $this->_subjects_for_next_semester;
     }
 
     public function getCurrentFailedSubjects()

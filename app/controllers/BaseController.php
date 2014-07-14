@@ -13,6 +13,15 @@ class BaseController extends Controller {
         $this->school_year_id = SchoolYear::whereSchoolYear($school_year_config->value)->pluck('id');
         $this->semester_id    = DBConfig::whereName('semester')->pluck('value');
 
+        if (Auth::check())
+        {
+            $this->data['logged_in_user'] = $this->logged_in_user = Auth::user();
+
+            if ($this->logged_in_user->group_id == 3)
+            {
+                $this->data['student'] = $this->student = Student::whereUserId($this->logged_in_user->id)->first();
+            }
+        }
     }
 
 	/**

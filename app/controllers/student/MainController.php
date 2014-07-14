@@ -17,15 +17,21 @@ class MainController extends \BaseController {
     {
         $user = \Auth::user();
 
-        $student = \Student::whereUserId($user->id)->first();
-
-        $_curriculum = \Curriculum::whereId($student->curriculum_id)->first();
+        $student = \Student::whereUserId($user->id)->with('Curriculum')->first();
 
         $enrolledSubjects = $student->enrolledSubjects();
+        if (empty($enrolledSubjects))
+        {
+            $enrolledSubjects = [];
+        }
+        else
+        {
+            $enrolledSubjects = $enrolledSubjects[$this->school_year_id][$this->semester_id];
+        }
 
-        $this->data['current_subjects_enrolled'] = $enrolledSubjects[$this->school_year_id][$this->semester_id];
+        $this->data['current_subjects_enrolled'] = $enrolledSubjects;
         $this->data['page'] = 'Dashboard';
-        $this->data['page_descrption_small'] = 'Overview';
+        $this->data['page_descrption_small'] = strtoupper('Welcome ' . $student->last_name . ', ' . $student->first_name);
         $this->data['page_description'] = 'Home';
         $this->_template_data('student.dashboard');
     }
